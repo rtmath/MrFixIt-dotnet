@@ -1,58 +1,50 @@
 ﻿<div class="text-center">
-    <h3>@Html.ActionLink("Add a new job", "Create")</h3>
+    <h3>@Html.ActionLink("Add a new job", "Create", new { @class = "btn btn-primary" })</h3>
  
 </div>
 <hr />
-<div class="status-key">
-    <div class="completed-text">Completed</div>
-    <div class="in-progress-text">In Progress</div>
-    <div class="incomplete-text">Incomplete</div>
-</div>
 
 <div class="jobs">
-
-
     @foreach (var Job in Model)
     {
-        <ul>
-            @if (Job.Pending)
-            {
-                <li class="in-progress-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
-            }
-            else if (Job.Completed)
-            {
-                <li class="completed-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
-            }
-            else
-            {
-                <li class="incomplete-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
-            }
+        <div class="job-container">
+                @if (Job.Pending)
+                {
+                    <div class="in-progress-text" id="@("status"+ @Job.JobId)">@Job.Title</div>
+                }
+                else if (Job.Completed)
+                {
+                    <div class="completed-text" id="@("status"+ @Job.JobId)">@Job.Title</div>
+                }
+                else
+                {
+                    <div class="incomplete-text" id="@("status"+ @Job.JobId)">@Job.Title</div>
+                }
 
-            <ul>
-                <li>@Job.Description</li>
-            </ul>
-            @if (Job.Worker == null)
+                <ul>
+                    <li>@Job.Description</li>
+                </ul>
+                @if (Job.Worker == null)
+                {
+                    <div class="btn">This job is unclaimed.</div>
+                    <div class="claim-button">@Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId }, new { @class = "btn btn-info" })</div>
+                }
+                else
+                {
+                    <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
+
+                }
+
+            @if (Job.Worker != null && Job.Worker.UserName == User.Identity.Name)
             {
-                <li class="btn">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
+                <div class="worker-buttons">
+                    <input class="inProgress btn btn-warning" id=@Job.JobId type="button" value="In Progress" />
+                    <input class="complete btn btn-success" id=@Job.JobId type="button" value="Completed" />
+                    <input class="unclaim btn btn-danger" id=@Job.JobId type="button" value="Unclaim this Job" />
+                </div>
             }
-            else
-            {
-                <li class="btn">This Job is claimed by @Job.Worker.FirstName @Job.Worker.LastName</li>
-
-            }
-        </ul>
-
-        @if (Job.Worker != null && Job.Worker.UserName == User.Identity.Name)
-        {
-            <div class="worker-buttons">
-                <input class="inProgress btn btn-warning" id=@Job.JobId type="button" value="In Progress" />
-                <input class="complete btn btn-success" id=@Job.JobId type="button" value="Completed" />
-                <input class="unclaim btn btn-danger" id=@Job.JobId type="button" value="Unclaim this Job" />
-            </div>
-        }
-        <hr />
-    }
-
+        </div>
+     }
 </div>
 
 <script>

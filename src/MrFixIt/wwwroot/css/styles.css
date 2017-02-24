@@ -10,6 +10,10 @@ a {
     color: black;
 }
 
+a:hover {
+    color: lightblue;
+}
+
 .nav {
     background-color: #00BDD5;
     width: 100%;
@@ -111,9 +115,13 @@ span {
     margin-right: 10%;
 }
 
-.jobs > ul > li:first-child {
+.job-container > div:first-child {
     font-size: 1.7em;
     list-style-type: none;
+    width: 100%;
+    padding: 5px;
+    background-color: lightblue;
+    border-bottom: 1px solid black;
 }
 
 .worker-buttons {
@@ -139,4 +147,17 @@ span {
 
 .login-register > label {
     margin-left: 10px;
+}
+
+.claim-button {
+    float: right;
+}
+
+.job-container {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    background-color: ghostwhite;
+    padding: 1px;
+    color: black;
+    box-shadow: 1px 1px 2px black;
 }
