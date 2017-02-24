@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
 }
 @model MrFixIt.Models.Job
 
@@ -14,6 +11,26 @@
     @Html.HiddenFor(model => model.Description)
 
     <h4>@Model.Title</h4>
-    <input type="submit" value="Claim This Job" />
+    <input id="claim" type="submit" value="Claim This Job" />
 }
 <p>@Html.ActionLink("Back to list", "Index")</p>
+
+<script>
+        $(document).ready(function () {
+            $('#claim').click(function () {
+                console.log($(this).serialize());
+                $.ajax({
+                    url: '@Url.Action("Claim", "Jobs")',
+                    type: 'POST',
+                    data: { JobId: $('#JobId').val(), Title: $('#Title').val(), Description: $('#Description').val()},
+                    dataType: 'json',
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    failure: function (exception) {
+                        alert("Something went wrong!");
+                    }
+                });
+            });
+        });
+</script>
