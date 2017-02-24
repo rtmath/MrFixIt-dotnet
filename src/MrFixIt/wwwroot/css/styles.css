@@ -92,3 +92,28 @@ span > a {
 span {
     color: black;
 }
+
+.status-key {
+    display: flex;
+    text-align: center;
+    margin-bottom: 3%;
+    padding-left: 15%;
+}
+
+.status-key > div {
+    font-weight: bolder;
+    margin-left: 35px;
+}
+
+.jobs {
+    margin-left: 10%;
+}
+
+.jobs > ul > li:first-child {
+    font-size: 1.7em;
+    list-style-type: none;
+}
+
+.worker-buttons {
+    margin-left: 45px;
+}
