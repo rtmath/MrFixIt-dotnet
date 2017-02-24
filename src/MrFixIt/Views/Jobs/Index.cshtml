@@ -33,7 +33,7 @@
             </ul>
             @if (Job.Worker == null)
             {
-                <li class="btn">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
+                <li class="btn btn-default">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
             }
             else
             {
@@ -45,8 +45,8 @@
         @if (Job.Worker != null && Job.Worker.UserName == User.Identity.Name)
         {
             <div class="worker-buttons">
-                <input class="inProgress" id=@Job.JobId type="button" value="In Progress" />
-                <input class="complete" id=@Job.JobId type="button" value="Completed" />
+                <input class="inProgress btn btn-warning" id=@Job.JobId type="button" value="In Progress" />
+                <input class="complete btn btn-success" id=@Job.JobId type="button" value="Completed" />
             </div>
         }
         <hr />

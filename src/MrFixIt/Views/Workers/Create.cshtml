@@ -1,17 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
 @using System.Security.Claims
 @model MrFixIt.Models.Worker
-
-<html>
-<head>
-    <title>Create</title>
-</head>
-<body>
+<div class="login-register">
     <h2>Create</h2>
     <hr />
     @if (User.Identity.IsAuthenticated)
@@ -19,17 +9,14 @@
         <h4>You do not have a complete worker profile. Please create your worker profile</h4>
         @using (Html.BeginForm())
         {
-            @Html.LabelFor(model => model.FirstName)
+            @Html.LabelFor(model => model.FirstName)<br />
             @Html.TextBoxFor(model => model.FirstName)
-            @Html.LabelFor(model => model.LastName)
+            <br />
+            @Html.LabelFor(model => model.LastName)<br />
             @Html.TextBoxFor(model => model.LastName)
 
-
+            <br />
             <input type="submit" value="Register" />
         }
     }
-
-
-
-</body>
-</html>
+</div>

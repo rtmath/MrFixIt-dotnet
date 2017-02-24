@@ -1,20 +1,20 @@
 ﻿@{
 }
 @model MrFixIt.Models.Job
+<div class="login-register">
+    <h2>Would you like to do this job?</h2>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.JobId)
+        @Html.HiddenFor(model => model.Title)
+        @Html.HiddenFor(model => model.Description)
 
-<h2>Would you like to do this job?</h2>
-<hr />
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.JobId)
-    @Html.HiddenFor(model => model.Title)
-    @Html.HiddenFor(model => model.Description)
-
-    <h4>@Model.Title</h4>
-    <input id="claim" type="submit" value="Claim This Job" />
-}
-<p>@Html.ActionLink("Back to list", "Index")</p>
-
+        <h4>@Model.Title</h4>
+        <input class="btn btn-default" id="claim" type="submit" value="Claim This Job" />
+    }
+    <p>@Html.ActionLink("Back to list", "Index")</p>
+</div>
 <script>
         $(document).ready(function () {
             $('#claim').click(function () {
