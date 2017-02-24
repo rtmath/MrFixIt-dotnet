@@ -33,7 +33,7 @@
             </ul>
             @if (Job.Worker == null)
             {
-                <li class="btn btn-default">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
+                <li class="btn">This job is unclaimed. @Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId })</li>
             }
             else
             {
@@ -47,6 +47,7 @@
             <div class="worker-buttons">
                 <input class="inProgress btn btn-warning" id=@Job.JobId type="button" value="In Progress" />
                 <input class="complete btn btn-success" id=@Job.JobId type="button" value="Completed" />
+                <input class="unclaim btn btn-danger" id=@Job.JobId type="button" value="Unclaim this Job" />
             </div>
         }
         <hr />
@@ -55,7 +56,6 @@
 </div>
 
 <script>
-
     $('.inProgress').click(function () {
         id = $(this).attr('id');
         $.ajax({
@@ -85,6 +85,20 @@
                 $("#status" + id).removeClass("incomplete-text");
                 $("#status" + id).removeClass("in-progress-text");
                 $("#status" + id).addClass("completed-text");
+            },
+            failure: function (exception) {
+                alert("Something went wrong!");
+            }
+        })
+    })
+    $('.unclaim').click(function () {
+        id = $(this).attr('id');
+        $.ajax({
+            url: '@Url.Action("Unclaim", "Jobs")',
+            type: 'POST',
+            data: { jobId: id },
+            success: function (result) {
+                location.reload();
             },
             failure: function (exception) {
                 alert("Something went wrong!");
