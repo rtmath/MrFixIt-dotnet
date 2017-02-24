@@ -7,10 +7,27 @@
     <h3>Our Current Jobs</h3>
     @Html.ActionLink("Add a new job", "Create")
 </div>
+
+<div class="incomplete-text">Incomplete</div>
+<div class="in-progress-text">In Progress</div>
+<div class="completed-text">Completed</div>
+<hr />
 @foreach (var Job in Model)
 {
     <ul>
-        <li>@Job.Title</li>
+        @if (Job.Pending)
+        {
+            <li class="in-progress-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
+        }
+        else if (Job.Completed)
+        {
+            <li class="completed-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
+        }
+        else
+        {
+            <li class="incomplete-text" id="@("status"+ @Job.JobId)">@Job.Title</li>
+        }
+
         <ul>
             <li>@Job.Description</li>
         </ul>
@@ -25,7 +42,49 @@
         }
     </ul>
 
-
+        @if (Job.Worker != null && Job.Worker.UserName == User.Identity.Name)
+        {
+            <input class="inProgress" id=@Job.JobId type="button" value="In Progress" />
+            <input class="complete" id=@Job.JobId type="button" value="Completed" />
+        }
     <hr />
 }
 
+<script>
+
+    $('.inProgress').click(function () {
+        id = $(this).attr('id');
+        $.ajax({
+            url: '@Url.Action("InProgress", "Jobs")',
+            type: 'POST',
+            data: { jobId: id},
+            dataType: 'json',
+            success: function (result) {
+                $("#status" + id).removeClass("incomplete-text");
+                $("#status" + id).removeClass("completed-text");
+                $("#status" + id).addClass("in-progress-text");
+            },
+            failure: function (exception) {
+                alert("Something went wrong!");
+            }
+        })
+    })
+
+    $('.complete').click(function () {
+        id = $(this).attr('id');
+        $.ajax({
+            url: '@Url.Action("Complete", "Jobs")',
+            type: 'POST',
+            data: { jobId: id },
+            dataType: 'json',
+            success: function (result) {
+                $("#status" + id).removeClass("incomplete-text");
+                $("#status" + id).removeClass("in-progress-text");
+                $("#status" + id).addClass("completed-text");
+            },
+            failure: function (exception) {
+                alert("Something went wrong!");
+            }
+        })
+    })
+</script>

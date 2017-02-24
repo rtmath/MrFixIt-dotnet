@@ -2,3 +2,15 @@
     padding-top: 70px;
     color: navy;
 }
+
+.incomplete-text {
+    color: red;
+}
+
+.in-progress-text {
+    color: orange;
+}
+
+.completed-text {
+    color: green;
+}
