@@ -1,0 +1,38 @@
+﻿<div class="nav" role="navigation">
+        <div class="nav-top">
+            <a class="nav-header" href="/">Mr. Fix-It</a>
+        </div>
+        <div class="nav-bottom">
+            <div class="nav-tab">
+                @Html.ActionLink("About", "Index", "About")
+            </div>
+            <div class="nav-tab">
+                @Html.ActionLink("Hire Us", "Index", "Jobs")
+            </div>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="nav-tab">
+                    @Html.ActionLink("Login", "Login", "Account")
+                </div>
+            }
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="nav-tab">
+                    @Html.ActionLink("Sign Up", "Register", "Account")
+                </div>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="nav-tab">
+                    @Html.ActionLink("Worker Dashboard", "Index", "Workers")
+                </div>
+            }
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="nav-tab">
+                    @Html.ActionLink("Log Out", "LogOff", "Account")
+                </div>
+            }
+        </div>
+</div>
