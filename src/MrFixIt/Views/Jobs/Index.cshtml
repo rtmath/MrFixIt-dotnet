@@ -27,7 +27,10 @@
                 @if (Job.Worker == null)
                 {
                     <div class="btn">This job is unclaimed.</div>
+                    @if (@User.Identity.IsAuthenticated)
+                    {
                     <div class="claim-button">@Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId }, new { @class = "btn btn-info" })</div>
+                    }
                 }
                 else
                 {
@@ -35,7 +38,7 @@
 
                 }
 
-            @if (Job.Worker != null && Job.Worker.UserName == User.Identity.Name)
+            @if (Job.Worker != null && !Job.Completed && Job.Worker.UserName == User.Identity.Name)
             {
                 <div class="worker-buttons">
                     <input class="inProgress btn btn-warning" id=@Job.JobId type="button" value="In Progress" />

@@ -161,3 +161,20 @@ span {
     color: black;
     box-shadow: 1px 1px 2px black;
 }
+
+.workers-job-container {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    background-color: lightblue;
+    padding: 1px;
+    color: black;
+    box-shadow: 1px 1px 2px black;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.workers-job-container > div {
+    background-color: #00BDD5;
+    border-top: 1px solid black;
+}

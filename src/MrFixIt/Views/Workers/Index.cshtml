@@ -9,14 +9,19 @@
         {
             @if (!Job.Completed)
             {
-                @if (Job.Pending)
-                {
-                    <h5 class="in-progress-text">@Job.Title</h5>
-                }
-                else
-                {
-                    <h5 class="incomplete-text">@Job.Title</h5>
-                }
+                <div class="workers-job-container">
+                    @if (Job.Pending)
+                    {
+                        <h3 class="in-progress-text">@Job.Title</h3>
+                    }
+                    else
+                    {
+                        <h3 class="incomplete-text">@Job.Title</h3>
+                    }
+                    <div>
+                        @Job.Description
+                    </div>
+                </div>
             }
         }
         <br />
@@ -26,9 +31,14 @@
         {
             if (Job.Completed)
             {
-                <h5 class="completed-text">@Job.Title</h5>
-
+                <div class="workers-job-container">
+                    <h3 class="completed-text">@Job.Title</h3>
+                    <div>
+                        @Job.Description
+                    </div>
+                </div>
             }
+
 
         }
         <hr />
