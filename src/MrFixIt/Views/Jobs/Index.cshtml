@@ -5,8 +5,9 @@
 <hr />
 
 <div class="jobs">
+    @{var counter = 0; }
     @foreach (var Job in Model)
-    {
+    {    
         <div class="job-container">
                 @if (Job.Pending)
                 {
@@ -29,7 +30,7 @@
                     <div class="btn">This job is unclaimed.</div>
                     @if (@User.Identity.IsAuthenticated)
                     {
-                    <div class="claim-button">@Html.ActionLink("Claim This Job", "Claim", new { @text = @Job.Title, id = Job.JobId }, new { @class = "btn btn-info" })</div>
+                            <input class="btn btn-info claim-button claim" id="@Job.JobId" type="button" value="Claim This Job" />
                     }
                 }
                 else
@@ -47,7 +48,8 @@
                 </div>
             }
         </div>
-     }
+        counter++;
+    }
 </div>
 
 <script>
@@ -56,7 +58,7 @@
         $.ajax({
             url: '@Url.Action("InProgress", "Jobs")',
             type: 'POST',
-            data: { jobId: id},
+            data: { jobId: id },
             dataType: 'json',
             success: function (result) {
                 $("#status" + id).removeClass("incomplete-text");
@@ -67,7 +69,7 @@
                 alert("Something went wrong!");
             }
         })
-    })
+    });
 
     $('.complete').click(function () {
         id = $(this).attr('id');
@@ -85,7 +87,24 @@
                 alert("Something went wrong!");
             }
         })
-    })
+    });
+
+    $('.claim').click(function () {
+        console.log("click");
+        $.ajax({
+            url: '@Url.Action("Claim", "Jobs")',
+            type: 'POST',
+            data: { JobId: $(this).attr('id') },
+            dataType: 'json',
+            success: function (result) {
+                location.reload();
+            },
+            failure: function (exception) {
+                alert("Something went wrong!");
+            }
+        });
+    });
+
     $('.unclaim').click(function () {
         id = $(this).attr('id');
         $.ajax({
@@ -99,5 +118,5 @@
                 alert("Something went wrong!");
             }
         })
-    })
+    });
 </script>
